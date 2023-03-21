@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .blueprintBox {
+                resize: both;
+                overflow: auto;
+                position: absolute;
+                text-align: center;
+                z-index: 10;
+                border: solid black 2px;
+                user-select: none;
+            }
+
+            .blueprintHeader {
+                cursor: move;
+                z-index: 10;
+            }
+
+            .overlay {
+                position:absolute;
+                overflow: visible;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                align-items: stretch;
+                pointer-events: none;
+            }
+
+            .box {
+                display: flex;
+                flex-flow: column;
+                height: 100%;
+            }
+            .box .row.header {
+                flex: 0 1 auto;
+            }
+            .box .row.content {
+                flex: 1 1 auto;
+            }
+        </style>
+    </head>
+    <body id="body">
+        <button onclick="downloadBlueprint(document.getElementById('fileName').value);">Download blueprint dialogue</button>
+        <button onclick="loadBlueprint();">Load blueprint dialogue</button>
+        <button onclick="download(document.getElementById('fileName').value);">Download json dialogue</button>
+        <input type="text" id="fileName">
+        <svg id="lineSvg" class="overlay"></svg>
+        <div class="blueprintBox box line" id="0" style="width: 200px;height: 200px;top:225px;left:25px;">
+            <div class="blueprintHeader row header" id="0header" style="background-color: aqua;">
+                <select oninput="changeBoxType(this);">
+                    <option value="message" selected>Message</option>
+                    <option value="choice">Choice</option>
+                    <option value="script">Script</option>
+                    <option value="condition">Condition</option>
+                    <option value="awaitEnter">Await Enter</option>
+                    <option value="moveTo">Move to</option>
+                    <option value="end">End</option>
+                </select>
+                Id: 0
+            </div>
+            <div style="background-color: bisque;" class="row content" style="height: 70%;">
+                <textarea oninput="updateContent(this);"></textarea>
+            </div>
+        </div>
+        <div class="blueprintBox box line" id="1" style="width: 200px;height: 200px;top:225px;left:275px;">
+            <div class="box header" id="1header" style="height: 30%;background-color: bisque;">
+
+            </div>
+            <div style="background-color: bisque;" class="row content" style="height: 70%;">
+                <button onclick="createBox(this);">+</button>
+            </div>
+        </div>
+    </body>
+    <footer>
+        <span id="header">
+            <script src="main.js"></script>
+        </span>
+    </footer>
+</html>
